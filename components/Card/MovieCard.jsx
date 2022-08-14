@@ -1,52 +1,68 @@
-import React from "react";
 import Image from "next/image";
-import { imageLibrary } from "../../request/axios";
 import Link from "next/link";
+import React from "react";
+import { toDot } from "../../lib/number-comma";
+import { imageLibrary } from "../../request/axios";
 
 const MovieCard = ({
-  backdrop_path,
+  poster_path,
   title,
   overview,
   tagline,
   status,
-  genres,
+  imdb_id,
+  name,
+  homepage,
 }) => {
   return (
     <>
-      <div className="flex py-4 gap-4">
-        <div className="w-[300px] h-[400px] relative">
-          <div className="bg-sky-400 mt-2 w-fit py-1 px-4 rounded-sm absolute z-10 right-1">
-            {status}
-          </div>
+      <div className="flex flex-col gap-4 py-4 sm:grid sm:grid-cols-[30%_70%]">
+        <div className="relative">
+          {status && (
+            <div className="absolute right-1 z-10 mt-2 w-fit rounded-sm bg-sky-400 py-1 px-4">
+              {status}
+            </div>
+          )}
           <Image
-            src={imageLibrary(backdrop_path)}
-            width={900}
-            height={1200}
+            src={imageLibrary(poster_path)}
+            width={1080}
+            height={1620}
             alt={title}
             objectFit="cover"
-            className="rounded-md bg-center"
+            className="rounded-md bg-center transition-all sm:hover:scale-105"
             quality={100}
           />
-          <button className="bg-red-700 w-[300px] py-2 text-white font-bold rounded-sm mt-2 transition-all lg:hover:scale-105">
-            WATCH TRAILER
-          </button>
+          {title && (
+            <a href="#trailer">
+              <button className="mt-2 w-full rounded-sm bg-red-700 py-2 font-bold text-white transition-all lg:hover:scale-105">
+                WATCH TRAILER
+              </button>
+            </a>
+          )}
+          {imdb_id && (
+            <div className="my-4 flex justify-between rounded-sm bg-slate-200 p-2">
+              <span>IMDB ID:</span> <span className="font-bold">{imdb_id}</span>
+            </div>
+          )}
         </div>
         <div className="text-white">
-          <h1 className="font-extrabold text-[2rem] mb-4">{title}</h1>
-          <p className="mb-4 font-bold">{tagline}</p>
-          <p className="opacity-70 text-justify">{overview}</p>
-          <div className="my-4">
-            Genres:{" "}
-            {genres.map((genre) => (
-              <Link href={`/genre/${genre.id}`} key={genre.id} passHref>
-                <a>
-                  <button className="px-2 bg-red-200 mx-2 rounded-sm text-red-700">
-                    {genre.name}
-                  </button>
-                </a>
-              </Link>
-            ))}
+          <div className="flex items-center justify-between">
+            <h1 className="mb-4 text-xl font-extrabold sm:text-[2rem]">
+              {title || name}
+            </h1>
+            {homepage && (
+              <a
+                href={homepage}
+                className="rounded-sm bg-red-700 p-1"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Homepage
+              </a>
+            )}
           </div>
+          <p className="mb-4 font-bold">{tagline}</p>
+          <p className="text-justify opacity-70">{overview}</p>
         </div>
       </div>
     </>

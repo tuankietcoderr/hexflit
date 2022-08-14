@@ -1,51 +1,98 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Slider from "react-slick";
+import useFetchData from "../../hooks/useFetchData";
+import Link from "next/link";
 import { imageLibrary } from "../../request/axios";
 import Image from "next/image";
-import Link from "next/link";
+import { CaretLeft, CaretRight } from "react-bootstrap-icons";
 
-const Trending = ({ movies }) => {
-  console.log(movies);
+const Trending = ({ fetchUrl, type }) => {
+  const [page, setPage] = useState(1);
+  const { data, loading } = useFetchData(fetchUrl, page);
+  if (loading) {
+    return (
+      <div className="grid h-[30vh] place-items-center text-white">
+        Loading...
+      </div>
+    );
+  }
   const settings = {
-    infinite: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    fade: true,
-    arrows: false,
+    slidesToShow: 6,
+    slidesToScroll: 6,
+    initialSlide: 0,
+    lazyLoad: true,
+    arrows: true,
+    infinite: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          fade: true,
+        },
+      },
+    ],
   };
   return (
-    <div className="w-full">
+    <>
+      <h2 className="my-6 text-lg font-extrabold text-white sm:text-[2rem]">
+        {type}
+      </h2>
       <Slider {...settings}>
-        {movies.map((movie) => (
-          <div key={movie.id} className="relative">
-            <div className="absolute z-[20] text-white top-[50%] left-[10%] right-[10%]">
-              <h1 className="sm:text-[3rem] text-xl font-extrabold leading-tight">
-                {movie.title}
-              </h1>
-              <p className="sm:w-[50%] opacity-70 text-ellipsis leading-6 line-clamp-3 mt-4">
-                {movie.overview}
-              </p>
-              <Link href={`/movie/${movie.id}#trailer`} passHref>
-                <a>
-                  <button className="mt-6 py-2 px-6 font-semibold bg-red-700 rounded-sm transition-all lg:hover:scale-105">
-                    TRAILER
-                  </button>
-                </a>
-              </Link>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-t from-slate-800 z-10 rounded-md" />
-            <Image
-              src={imageLibrary(movie.backdrop_path)}
-              alt={movie.title}
-              width={1920}
-              height={1080}
-            />
-          </div>
+        {data.results.map((movie) => (
+          <Link href={`/movie/${movie.id}`} key={movie.id} passHref>
+            <a>
+              <Image
+                src={imageLibrary(movie.poster_path)}
+                alt={movie.title}
+                width={1080}
+                height={1620}
+                className="sm:!mr-2"
+              />
+            </a>
+          </Link>
         ))}
       </Slider>
-    </div>
+      <div className="flex flex-row-reverse">
+        <div className="flex items-center gap-4 text-slate-200">
+          <div>{`Page ${
+            page > 0 && page <= data.total_pages ? page : setPage(1)
+          } / ${data.total_pages}`}</div>
+
+          <button
+            onClick={() => setPage((prev) => prev - 1)}
+            className="bg-slate-700 p-2"
+          >
+            <CaretLeft size={20} />
+          </button>
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            className="bg-slate-700 p-2"
+          >
+            <CaretRight size={20} />
+          </button>
+        </div>
+        <div />
+      </div>
+    </>
   );
 };
 

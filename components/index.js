@@ -1,3 +1,11 @@
 export { default as Navigation } from "./Navigation";
 export { default as SliderMovie } from "./Body/SliderMovie";
+export { default as SliderActor } from "./Body/SliderActor";
+export { default as AnotherSliderActor } from "./Body/AnotherSliderActor";
+export { default as Trending } from "./Body/Trending";
+export { default as LatestMovie } from "./Body/LatestMovie";
+export { default as Trailer } from "./Body/Trailer";
 export { default as MovieCard } from "./Card/MovieCard";
+export { default as SlickMovie } from "./Slick/SlickMovie";
+export { default as SlickTV } from "./Slick/SlickTV";
+export { default as MovieStat } from "./Card/MovieStat";

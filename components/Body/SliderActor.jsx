@@ -7,9 +7,9 @@ import Image from "next/image";
 import { CaretLeft, CaretRight } from "react-bootstrap-icons";
 import Loading from "../Layout/Loading";
 
-const SliderMovie = ({ fetchUrl, type, query }) => {
+const SliderActor = ({ fetchUrl, type }) => {
   const [page, setPage] = useState(1);
-  const { data, loading } = useFetchData(fetchUrl, page, query);
+  const { data, loading } = useFetchData(fetchUrl, page);
   const settings = {
     speed: 500,
     slidesToShow: 6,
@@ -53,21 +53,18 @@ const SliderMovie = ({ fetchUrl, type, query }) => {
       {!loading ? (
         <>
           <Slider {...settings}>
-            {data.results.map((movie) => (
-              <Link href={`/movie/${movie.id}`} key={movie.id} passHref>
+            {data.results.map((cast) => (
+              <Link href={`/cast/${cast.id}`} key={cast.id} passHref>
                 <a>
                   <Image
-                    src={imageLibrary(
-                      movie.poster_path || "/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg"
-                    )}
-                    alt={movie.title}
+                    src={imageLibrary(cast.profile_path)}
+                    alt={cast.name}
                     width={1080}
                     height={1620}
                     className="sm:!mr-2"
                     placeholder="blur"
-                    blurDataURL={imageLibrary(
-                      movie.poster_path || "/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg"
-                    )}
+                    blurDataURL={imageLibrary(cast.profile_path)}
+                    loading="lazy"
                   />
                 </a>
               </Link>
@@ -102,4 +99,4 @@ const SliderMovie = ({ fetchUrl, type, query }) => {
   );
 };
 
-export default SliderMovie;
+export default SliderActor;
