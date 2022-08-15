@@ -6,6 +6,7 @@ const useFetchData = (fetchUrl, page, query) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     let subscribed = true;
+
     if (subscribed) {
       instance
         .get(

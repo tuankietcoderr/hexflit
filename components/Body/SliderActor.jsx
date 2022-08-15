@@ -6,10 +6,11 @@ import { imageLibrary } from "../../request/axios";
 import Image from "next/image";
 import { CaretLeft, CaretRight } from "react-bootstrap-icons";
 import Loading from "../Layout/Loading";
+import PageNavigate from "../Layout/PageNavigate";
 
-const SliderActor = ({ fetchUrl, type }) => {
+const SliderActor = ({ fetchUrl, type, query }) => {
   const [page, setPage] = useState(1);
-  const { data, loading } = useFetchData(fetchUrl, page);
+  const { data, loading } = useFetchData(fetchUrl, page, query);
   const settings = {
     speed: 500,
     slidesToShow: 6,
@@ -45,6 +46,18 @@ const SliderActor = ({ fetchUrl, type }) => {
       },
     ],
   };
+  if (data && data.results.length === 0) {
+    return (
+      <>
+        <h2 className="my-6 text-lg font-extrabold text-white sm:text-[2rem]">
+          {type}
+        </h2>
+        <div className="flex justify-center">
+          <p className="text-center text-white text-2xl">No actor found</p>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       <h2 className="my-6 text-lg font-extrabold text-white sm:text-[2rem]">
@@ -57,40 +70,33 @@ const SliderActor = ({ fetchUrl, type }) => {
               <Link href={`/cast/${cast.id}`} key={cast.id} passHref>
                 <a>
                   <Image
-                    src={imageLibrary(cast.profile_path)}
+                    src={
+                      cast.profile_path
+                        ? imageLibrary(cast.profile_path)
+                        : "/netflix.jpg"
+                    }
                     alt={cast.name}
                     width={1080}
                     height={1620}
-                    className="sm:!mr-2"
+                    className="sm:!mr-2 transition-all sm:hover:scale-105"
                     placeholder="blur"
-                    blurDataURL={imageLibrary(cast.profile_path)}
+                    blurDataURL={
+                      cast.profile_path
+                        ? imageLibrary(cast.profile_path)
+                        : "/netflix.jpg"
+                    }
                     loading="lazy"
+                    title={cast.name}
                   />
                 </a>
               </Link>
             ))}
           </Slider>
-          <div className="flex flex-row-reverse">
-            <div className="flex items-center gap-4 text-slate-200">
-              <div>{`Page ${
-                page > 0 && page <= data.total_pages ? page : setPage(1)
-              } / ${data.total_pages}`}</div>
-
-              <button
-                onClick={() => setPage((prev) => prev - 1)}
-                className="rounded-sm bg-slate-700 p-2"
-              >
-                <CaretLeft size={20} />
-              </button>
-              <button
-                onClick={() => setPage((prev) => prev + 1)}
-                className="rounded-sm bg-slate-700 p-2"
-              >
-                <CaretRight size={20} />
-              </button>
-            </div>
-            <div />
-          </div>{" "}
+          <PageNavigate
+            page={page}
+            setPage={setPage}
+            total_pages={data.total_pages}
+          />
         </>
       ) : (
         <Loading />

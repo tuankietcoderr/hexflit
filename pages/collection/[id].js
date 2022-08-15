@@ -18,6 +18,7 @@ export async function getServerSideProps({ params }) {
 const Collection = ({ collection }) => {
   console.log(collection);
   const settings = {
+    infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -45,7 +46,7 @@ const Collection = ({ collection }) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          arrows: false,
+          arrows: true,
           dots: true,
         },
       },

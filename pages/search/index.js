@@ -1,5 +1,5 @@
 import React from "react";
-import { SliderMovie } from "../../components";
+import { SliderActor, SliderMovie } from "../../components";
 
 export async function getServerSideProps({ query }) {
   return {
@@ -14,8 +14,19 @@ const Search = ({ query }) => {
     <>
       <div className="px-8 pt-4">
         <SliderMovie
-          type={`Search Results for "${query}"`}
+          type={`Movies search results for "${query}"`}
           fetchUrl={"/search/movie"}
+          query={query}
+        />
+        <SliderActor
+          type={`Cast search results for "${query}"`}
+          fetchUrl="/search/person"
+          query={query}
+        />
+        <SliderMovie
+          collection={true}
+          type={`Collections search results for "${query}"`}
+          fetchUrl={"/search/collection"}
           query={query}
         />
       </div>

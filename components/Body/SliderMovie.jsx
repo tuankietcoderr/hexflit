@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import Slider from "react-slick";
 import useFetchData from "../../hooks/useFetchData";
-import Link from "next/link";
 import { imageLibrary } from "../../request/axios";
-import Image from "next/image";
-import { CaretLeft, CaretRight } from "react-bootstrap-icons";
 import Loading from "../Layout/Loading";
+import PageNavigate from "../Layout/PageNavigate";
 
-const SliderMovie = ({ fetchUrl, type, query }) => {
+const SliderMovie = ({ fetchUrl, type, query, collection }) => {
   const [page, setPage] = useState(1);
   const { data, loading } = useFetchData(fetchUrl, page, query);
   const settings = {
@@ -45,6 +45,18 @@ const SliderMovie = ({ fetchUrl, type, query }) => {
       },
     ],
   };
+  if (data && data.results.length === 0) {
+    return (
+      <>
+        <h2 className="my-6 text-lg font-extrabold text-white sm:text-[2rem]">
+          {type}
+        </h2>
+        <div className="flex justify-center">
+          <p className="text-center text-white text-2xl">No movie found</p>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       <h2 className="my-6 text-lg font-extrabold text-white sm:text-[2rem]">
@@ -54,46 +66,39 @@ const SliderMovie = ({ fetchUrl, type, query }) => {
         <>
           <Slider {...settings}>
             {data.results.map((movie) => (
-              <Link href={`/movie/${movie.id}`} key={movie.id} passHref>
+              <Link
+                href={`/${collection ? "collection" : "movie"}/${movie.id}`}
+                key={movie.id}
+                passHref
+              >
                 <a>
                   <Image
-                    src={imageLibrary(
-                      movie.poster_path || "/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg"
-                    )}
+                    src={
+                      movie.poster_path
+                        ? imageLibrary(movie.poster_path)
+                        : "/netflix.jpg"
+                    }
                     alt={movie.title}
                     width={1080}
                     height={1620}
-                    className="sm:!mr-2"
+                    className="sm:!mr-2 transition-all sm:hover:scale-105"
                     placeholder="blur"
-                    blurDataURL={imageLibrary(
-                      movie.poster_path || "/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg"
-                    )}
+                    blurDataURL={
+                      movie.poster_path
+                        ? imageLibrary(movie.poster_path)
+                        : "/netflix.jpg"
+                    }
+                    title={movie.title}
                   />
                 </a>
               </Link>
             ))}
           </Slider>
-          <div className="flex flex-row-reverse">
-            <div className="flex items-center gap-4 text-slate-200">
-              <div>{`Page ${
-                page > 0 && page <= data.total_pages ? page : setPage(1)
-              } / ${data.total_pages}`}</div>
-
-              <button
-                onClick={() => setPage((prev) => prev - 1)}
-                className="rounded-sm bg-slate-700 p-2"
-              >
-                <CaretLeft size={20} />
-              </button>
-              <button
-                onClick={() => setPage((prev) => prev + 1)}
-                className="rounded-sm bg-slate-700 p-2"
-              >
-                <CaretRight size={20} />
-              </button>
-            </div>
-            <div />
-          </div>{" "}
+          <PageNavigate
+            page={page}
+            setPage={setPage}
+            total_pages={data.total_pages}
+          />
         </>
       ) : (
         <Loading />

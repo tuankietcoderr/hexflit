@@ -69,3 +69,17 @@ export const searchMovie = async (query) => {
   );
   return res.data;
 };
+
+export const getReviews = async (id) => {
+  const res = await instance.get(
+    `/movie/${id}/reviews?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=${page}`
+  );
+  return res.data;
+};
+
+export const getKeywords = async (id) => {
+  const res = await instance.get(
+    `/movie/${id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+  );
+  return res.data;
+};

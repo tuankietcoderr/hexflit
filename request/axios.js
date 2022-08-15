@@ -4,5 +4,9 @@ export const instance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
 });
 
-export const imageLibrary = (link) =>
-  "https://image.tmdb.org/t/p/original" + link;
+export const imageLibrary = (link) => {
+  if (link && link.includes("gravatar")) {
+    return link.slice(1);
+  }
+  return "https://image.tmdb.org/t/p/original" + link;
+};

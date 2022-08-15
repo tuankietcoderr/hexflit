@@ -9,14 +9,14 @@ const Navigation = () => {
   const router = useRouter();
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
-      if (e.key === "/") {
+      if (e.key === "Enter") {
         setInputFocus(true);
       }
     });
     return () => {
       removeEventListener("keydown", (e) => {
-        if (e.key === "/") {
-          setInputFocus(true);
+        if (e.key === "Enter") {
+          setInputFocus(false);
         }
       });
     };
@@ -39,14 +39,23 @@ const Navigation = () => {
               ref={inputRef}
               type="text"
               className="h-8 w-full rounded-tl-sm rounded-bl-sm border px-2 py-1 text-black focus:outline-1"
-              placeholder="stranger things, thor,..."
+              placeholder="Press Enter to search"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && inputRef.current.value !== "") {
                   router.push(`/search?movie=${inputRef.current.value}`);
+                  inputRef.current.value = "";
                 }
               }}
             />
-            <div className="grid h-8 w-8 cursor-pointer place-items-center rounded-tr-sm rounded-br-sm bg-red-700">
+            <div
+              onClick={() => {
+                if (inputRef.current.value !== "") {
+                  router.push(`/search?movie=${inputRef.current.value}`);
+                  inputRef.current.value = "";
+                }
+              }}
+              className="grid h-8 w-8 cursor-pointer place-items-center rounded-tr-sm rounded-br-sm bg-red-700"
+            >
               <Search color="white" size={20} />
             </div>
           </div>

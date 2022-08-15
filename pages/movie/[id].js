@@ -3,31 +3,38 @@ import Link from "next/link";
 import React from "react";
 import {
   AnotherSliderActor,
+  Keywords,
   MovieCard,
   MovieStat,
+  Review,
+  SliderMovie,
   Trailer,
 } from "../../components";
 import { imageLibrary } from "../../request/axios";
 import {
   getCredits,
+  getKeywords,
   getMovieDetails,
   getMovieVideos,
 } from "../../services/movie";
 
 export async function getServerSideProps({ params }) {
-  const movie = await getMovieDetails(params.id);
-  const videos = await getMovieVideos(params.id);
-  const credits = await getCredits(params.id);
+  const movie = getMovieDetails(params.id);
+  const videos = getMovieVideos(params.id);
+  const credits = getCredits(params.id);
+  const keywords = getKeywords(params.id);
+  const obj = await Promise.all([movie, videos, credits, keywords]);
   return {
     props: {
-      movie,
-      videos: videos.results,
-      credits: credits.cast,
+      movie: obj[0],
+      videos: obj[1].results,
+      credits: obj[2].cast,
+      keywords: obj[3].keywords,
     },
   };
 }
 
-const MovieDetail = ({ movie, videos, credits }) => {
+const MovieDetail = ({ movie, videos, credits, keywords }) => {
   return (
     <>
       <div className="mx-[5%] sm:mx-[10%]">
@@ -74,6 +81,13 @@ const MovieDetail = ({ movie, videos, credits }) => {
           trailers={videos
             .filter((video) => video.type === "Trailer")
             .reverse()}
+        />
+        <Review movie_id={movie.id} />
+        <Keywords keywords={keywords} />
+        <SliderMovie type="Similar" fetchUrl={`/movie/${movie.id}/similar`} />
+        <SliderMovie
+          type="Recommendations"
+          fetchUrl={`/movie/${movie.id}/recommendations`}
         />
       </div>
     </>

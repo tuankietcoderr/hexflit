@@ -1,7 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
-import { toDot } from "../../lib/number-comma";
 import { imageLibrary } from "../../request/axios";
 
 const MovieCard = ({
@@ -24,7 +22,7 @@ const MovieCard = ({
             </div>
           )}
           <Image
-            src={imageLibrary(poster_path)}
+            src={poster_path ? imageLibrary(poster_path) : "/netflix.jpg"}
             width={1080}
             height={1620}
             alt={title}

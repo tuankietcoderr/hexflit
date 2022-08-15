@@ -3,8 +3,13 @@ import "../styles/pie.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Navigation } from "../components";
+import { useEffect } from "react";
+import { smoothScroll } from "../lib/smooth-scroll";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    smoothScroll();
+  }, []);
   return (
     <>
       <Navigation />
