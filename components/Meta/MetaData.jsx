@@ -6,7 +6,7 @@ const MetaData = ({ type, title, thumbnail, description, link }) => {
   return (
     <Head>
       <title>
-        {`HexaMovie ${type ? "| " + type : ""} ${title ? "| " + title : ""}`}
+        {`HexFlit ${type ? "| " + type : ""} ${title ? "| " + title : ""}`}
       </title>
       <meta name="description" content={description} />
       {link && <meta property="og:url" content={`${URL + "/" + link}`} />}

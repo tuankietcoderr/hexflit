@@ -35,8 +35,8 @@ const SlickMovie = ({ type, collection, data }) => {
                     : "/netflix.jpg"
                 }
                 alt={movie.title}
-                width={1080}
-                height={1620}
+                width={360}
+                height={540}
                 className="sm:!mr-2 transition-all sm:hover:scale-105"
                 placeholder="blur"
                 blurDataURL={
@@ -44,6 +44,7 @@ const SlickMovie = ({ type, collection, data }) => {
                     ? imageLibrary(movie.poster_path)
                     : "/netflix.jpg"
                 }
+                loading="lazy"
               />
             </a>
           </Link>

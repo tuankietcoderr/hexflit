@@ -14,9 +14,10 @@ const LatestMovie = ({ id, poster_path, title }) => {
           <Image
             src={imageLibrary(poster_path || "/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg")}
             alt={title}
-            width={1080}
-            height={1620}
+            width={360}
+            height={540}
             className="sm:!mr-2"
+            loading="lazy"
           />
         </a>
       </Link>

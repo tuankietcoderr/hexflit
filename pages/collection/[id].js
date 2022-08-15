@@ -45,9 +45,10 @@ const Collection = ({ collection }) => {
                 <Image
                   src={imageLibrary(part.poster_path)}
                   alt={part.title}
-                  width={1080}
-                  height={1620}
+                  width={360}
+                  height={540}
                   className="!mr-2"
+                  loading="lazy"
                 />
               </a>
             </Link>

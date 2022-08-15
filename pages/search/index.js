@@ -22,18 +22,18 @@ const Search = ({ query }) => {
         <SliderMovie
           type={`Movies search results for "${query}"`}
           fetchUrl={"/search/movie"}
-          query={query}
+          query={{ type: "query", value: query }}
         />
         <SliderActor
           type={`Cast search results for "${query}"`}
           fetchUrl="/search/person"
-          query={query}
+          query={{ type: "query", value: query }}
         />
         <SliderMovie
           collection={true}
           type={`Collections search results for "${query}"`}
           fetchUrl={"/search/collection"}
-          query={query}
+          query={{ type: "query", value: query }}
         />
       </div>
     </>

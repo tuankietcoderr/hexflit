@@ -50,8 +50,8 @@ const SliderActor = ({ fetchUrl, type, query }) => {
                         : "/netflix.jpg"
                     }
                     alt={cast.name}
-                    width={1080}
-                    height={1620}
+                    width={360}
+                    height={540}
                     className="sm:!mr-2 transition-all sm:hover:scale-105"
                     placeholder="blur"
                     blurDataURL={

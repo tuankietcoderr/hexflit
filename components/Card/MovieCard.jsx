@@ -23,12 +23,16 @@ const MovieCard = ({
           )}
           <Image
             src={poster_path ? imageLibrary(poster_path) : "/netflix.jpg"}
-            width={1080}
-            height={1620}
+            width={360}
+            height={540}
             alt={title}
             objectFit="cover"
             className="rounded-md bg-center transition-all sm:hover:scale-105"
-            quality={100}
+            placeholder="blur"
+            blurDataURL={
+              poster_path ? imageLibrary(poster_path) : "/netflix.jpg"
+            }
+            loading="lazy"
           />
           {title && (
             <a href="#trailer">

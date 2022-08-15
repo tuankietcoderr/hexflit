@@ -1,8 +1,8 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { BookmarkHeart, PersonCircle, Search } from "react-bootstrap-icons";
 import { useFocus } from "../../hooks/useFocus";
-import { useRouter } from "next/router";
 
 const Navigation = () => {
   const [inputRef, setInputFocus] = useFocus();
@@ -28,7 +28,7 @@ const Navigation = () => {
         <Link href="/" passHref>
           <a>
             <h1 className="text-center text-[3rem] font-extrabold text-red-500 sm:text-[2rem]">
-              HexaMovie
+              HexFlit
             </h1>
           </a>
         </Link>

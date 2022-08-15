@@ -23,12 +23,13 @@ const CastCard = ({
           )}
           <Image
             src={profile_path ? imageLibrary(profile_path) : "/netflix.jpg"}
-            width={1080}
-            height={1620}
+            width={360}
+            height={540}
             alt={name}
             objectFit="cover"
             className="rounded-md bg-center transition-all sm:hover:scale-105"
             quality={100}
+            loading="lazy"
           />
           {imdb_id && (
             <div className="my-4 flex justify-between rounded-sm bg-slate-200 p-2">

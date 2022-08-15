@@ -1,9 +1,20 @@
-import { MetaData, SliderMovie } from "../components";
+import { MetaData, SlickGenre, SliderMovie } from "../components";
 import MainContent from "../components/Body/MainContent";
 import SliderActor from "../components/Body/SliderActor";
-import { getMovies } from "../services/movie";
+import { getGenres, getMovies } from "../services/movie";
 
-const Home = ({ movies }) => {
+export async function getServerSideProps() {
+  const res = await getMovies();
+  const genres = await getGenres();
+  return {
+    props: {
+      movies: res.results.reverse(),
+      genres: genres.genres,
+    },
+  };
+}
+
+const Home = ({ movies, genres }) => {
   const pageSection = [
     {
       type: "Trending",
@@ -28,7 +39,12 @@ const Home = ({ movies }) => {
   ];
   return (
     <>
-      <MetaData />
+      <MetaData
+        description={
+          "HexFlit is a web app that allows you to follow movies you love and watch movies trailer."
+        }
+        thumbnail={"/icons/icon-512x512.png"}
+      />
       <div>
         <MainContent movies={movies} />
       </div>
@@ -37,18 +53,10 @@ const Home = ({ movies }) => {
           <SliderMovie key={type} type={type} fetchUrl={fetchUrl} />
         ))}
         <SliderActor type={"Popular Cast"} fetchUrl={"/person/popular"} />
+        <SlickGenre genres={genres} />
       </div>
     </>
   );
 };
 
 export default Home;
-
-export async function getServerSideProps() {
-  const res = await getMovies();
-  return {
-    props: {
-      movies: res.results.reverse(),
-    },
-  };
-}

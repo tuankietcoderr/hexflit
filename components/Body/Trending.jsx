@@ -38,9 +38,10 @@ const Trending = ({ fetchUrl, type }) => {
               <Image
                 src={imageLibrary(movie.poster_path)}
                 alt={movie.title}
-                width={1080}
-                height={1620}
+                width={360}
+                height={540}
                 className="sm:!mr-2"
+                loading="lazy"
               />
             </a>
           </Link>

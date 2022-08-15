@@ -18,6 +18,7 @@ const Review = ({ movie_id }) => {
     adaptiveHeight: true,
     fade: true,
     initialSlide: 0,
+    lazyLoad: true,
   };
   if (data && data.results.length === 0) {
     return (
@@ -54,6 +55,7 @@ const Review = ({ movie_id }) => {
                       height={80}
                       alt={review.author}
                       className="rounded-full"
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex justify-between w-full">

@@ -51,13 +51,12 @@ const MovieDetail = ({ movie, videos, credits, keywords }) => {
         <div className="my-4 text-white">
           <h2 className="my-4 text-xl font-bold">Genres</h2>
           {movie.genres.map((genre) => (
-            <Link href={`/genre/${genre.id}`} key={genre.id} passHref>
-              <a>
-                <button className="my-2 mx-2 rounded-sm bg-red-200 px-2 text-red-700 sm:my-0">
-                  {genre.name}
-                </button>
-              </a>
-            </Link>
+            <button
+              key={genre.id}
+              className="my-2 mx-2 rounded-sm bg-red-200 px-2 text-red-700 sm:my-0"
+            >
+              {genre.name}
+            </button>
           ))}
         </div>
         <MovieStat {...movie} />
@@ -71,13 +70,26 @@ const MovieDetail = ({ movie, videos, credits, keywords }) => {
                 <div className="grid place-items-center">
                   <div className="my-4 w-[300px] transition-all sm:hover:scale-105">
                     <Image
-                      src={imageLibrary(
+                      src={
                         movie.belongs_to_collection.poster_path
-                      )}
-                      width={1080}
-                      height={1620}
+                          ? imageLibrary(
+                              movie.belongs_to_collection.poster_path
+                            )
+                          : "/netflix.jpg"
+                      }
+                      width={360}
+                      height={540}
                       className="rounded-md"
                       alt={movie.belongs_to_collection.name}
+                      placeholder="blur"
+                      blurDataURL={
+                        movie.belongs_to_collection.poster_path
+                          ? imageLibrary(
+                              movie.belongs_to_collection.poster_path
+                            )
+                          : "/netflix.jpg"
+                      }
+                      loading="lazy"
                     />
                   </div>
                 </div>

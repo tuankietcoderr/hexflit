@@ -31,7 +31,6 @@ const SliderMovie = ({ fetchUrl, type, query, collection }) => {
       </>
     );
   }
-  console.log(data);
   return (
     <>
       <h2 className="my-6 text-lg font-extrabold text-white sm:text-[2rem]">
@@ -54,8 +53,8 @@ const SliderMovie = ({ fetchUrl, type, query, collection }) => {
                         : "/netflix.jpg"
                     }
                     alt={movie.title}
-                    width={1080}
-                    height={1620}
+                    width={360}
+                    height={540}
                     className="sm:!mr-2 transition-all sm:hover:scale-105"
                     placeholder="blur"
                     blurDataURL={
@@ -64,6 +63,7 @@ const SliderMovie = ({ fetchUrl, type, query, collection }) => {
                         : "/netflix.jpg"
                     }
                     title={movie.title}
+                    loading="lazy"
                   />
                 </a>
               </Link>

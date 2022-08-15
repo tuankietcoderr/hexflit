@@ -11,7 +11,7 @@ const useFetchData = (fetchUrl, page, query) => {
       instance
         .get(
           `${fetchUrl}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}${
-            query ? `&query=${query}` : ""
+            query ? `&${query.type}=${query.value}` : ""
           }`
         )
         .then((res) => res.data)

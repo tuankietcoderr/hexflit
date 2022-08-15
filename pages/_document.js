@@ -39,8 +39,8 @@ class MyDocument extends Document {
           <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
 
           <link rel="manifest" href="/manifest.json" />
-          {/* <link rel="apple-touch-icon" href="/icon-192x192.png" /> */}
-          {/* <link rel="icon" href="/icon-192x192.png" /> */}
+          <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+          <link rel="icon" href="/icons/icon-192x192.png" />
           <meta name="renderer" content="webkit" />
           <meta property="og:locale" content="vi_VN" />
           <meta property="og:type" content="website" />
