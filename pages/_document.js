@@ -19,7 +19,7 @@ class MyDocument extends Document {
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
             strategy="beforeInteractive"
           />
-          <meta name="theme-color" content="#ffffff" />
+          <meta name="theme-color" content="#B91C1C" />
           {/* <!--  Force chromium kernel to act on domestic dual core browsers such as 360 browser and QQ browser -- > */}
           <meta name="renderer" content="webkit" />
           {/* <!--  Force the chromium kernel to work on other dual core browsers -- > */}
