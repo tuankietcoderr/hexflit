@@ -2,9 +2,10 @@ import React from "react";
 import { imageLibrary } from "../../request/axios";
 import { getCollectionDetails } from "../../services/movie";
 import Image from "next/image";
-import { MovieCard } from "../../components";
+import { MetaData, MovieCard } from "../../components";
 import Link from "next/link";
 import Slider from "react-slick";
+import { responsive } from "../../lib/responsive";
 
 export async function getServerSideProps({ params }) {
   const res = await getCollectionDetails(params.id);
@@ -16,7 +17,6 @@ export async function getServerSideProps({ params }) {
 }
 
 const Collection = ({ collection }) => {
-  console.log(collection);
   const settings = {
     infinite: false,
     speed: 500,
@@ -24,36 +24,17 @@ const Collection = ({ collection }) => {
     slidesToScroll: 4,
     initialSlide: 0,
     lazyLoad: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: true,
-          dots: true,
-        },
-      },
-    ],
+    responsive,
   };
   return (
     <>
+      <MetaData
+        type="Collection"
+        title={collection.name}
+        description={collection.overview}
+        thumbnail={imageLibrary(collection.backdrop_path)}
+        link={`collection/${collection.id}`}
+      />
       <div className="mx-[5%] sm:mx-[10%]">
         <MovieCard {...collection} />
         <h2 className="text-xl font-bold text-white">Parts</h2>

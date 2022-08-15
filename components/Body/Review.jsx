@@ -17,6 +17,7 @@ const Review = ({ movie_id }) => {
     infinite: false,
     adaptiveHeight: true,
     fade: true,
+    initialSlide: 0,
   };
   if (data && data.results.length === 0) {
     return (

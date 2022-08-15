@@ -1,4 +1,4 @@
-import { SliderMovie } from "../components";
+import { MetaData, SliderMovie } from "../components";
 import MainContent from "../components/Body/MainContent";
 import SliderActor from "../components/Body/SliderActor";
 import { getMovies } from "../services/movie";
@@ -28,6 +28,7 @@ const Home = ({ movies }) => {
   ];
   return (
     <>
+      <MetaData />
       <div>
         <MainContent movies={movies} />
       </div>

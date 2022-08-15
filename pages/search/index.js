@@ -1,5 +1,5 @@
 import React from "react";
-import { SliderActor, SliderMovie } from "../../components";
+import { MetaData, SliderActor, SliderMovie } from "../../components";
 
 export async function getServerSideProps({ query }) {
   return {
@@ -12,6 +12,12 @@ export async function getServerSideProps({ query }) {
 const Search = ({ query }) => {
   return (
     <>
+      <MetaData
+        type="Search"
+        title={query}
+        description={"Search results for" + query}
+        link={`search?movie=${encodeURIComponent(query)}`}
+      />
       <div className="px-8 pt-4">
         <SliderMovie
           type={`Movies search results for "${query}"`}

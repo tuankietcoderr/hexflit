@@ -10,5 +10,6 @@ export { default as Trailer } from "./Body/Trailer";
 export { default as MovieCard } from "./Card/MovieCard";
 export { default as CastCard } from "./Card/CastCard";
 export { default as SlickMovie } from "./Slick/SlickMovie";
+export { default as MetaData } from "./Meta/MetaData";
 export { default as MovieStat } from "./Card/MovieStat";
 export { default as PageNavigate } from "./Layout/PageNavigate";

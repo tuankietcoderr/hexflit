@@ -6,6 +6,7 @@ import useFetchData from "../../hooks/useFetchData";
 import { imageLibrary } from "../../request/axios";
 import Loading from "../Layout/Loading";
 import PageNavigate from "../Layout/PageNavigate";
+import { responsive } from "../../lib/responsive";
 
 const SliderMovie = ({ fetchUrl, type, query, collection }) => {
   const [page, setPage] = useState(1);
@@ -14,36 +15,9 @@ const SliderMovie = ({ fetchUrl, type, query, collection }) => {
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 6,
-    initialSlide: 0,
     lazyLoad: true,
-    arrows: true,
     infinite: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          fade: true,
-        },
-      },
-    ],
+    responsive,
   };
   if (data && data.results.length === 0) {
     return (
@@ -57,6 +31,7 @@ const SliderMovie = ({ fetchUrl, type, query, collection }) => {
       </>
     );
   }
+  console.log(data);
   return (
     <>
       <h2 className="my-6 text-lg font-extrabold text-white sm:text-[2rem]">

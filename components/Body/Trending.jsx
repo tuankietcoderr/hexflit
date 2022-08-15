@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { CaretLeft, CaretRight } from "react-bootstrap-icons";
 import Slider from "react-slick";
 import useFetchData from "../../hooks/useFetchData";
-import Link from "next/link";
+import { responsive } from "../../lib/responsive";
 import { imageLibrary } from "../../request/axios";
-import Image from "next/image";
-import { CaretLeft, CaretRight } from "react-bootstrap-icons";
 
 const Trending = ({ fetchUrl, type }) => {
   const [page, setPage] = useState(1);
@@ -20,36 +21,10 @@ const Trending = ({ fetchUrl, type }) => {
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 6,
-    initialSlide: 0,
     lazyLoad: true,
     arrows: true,
     infinite: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          fade: true,
-        },
-      },
-    ],
+    responsive,
   };
   return (
     <>

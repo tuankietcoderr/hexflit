@@ -4,6 +4,7 @@ import React from "react";
 import {
   AnotherSliderActor,
   Keywords,
+  MetaData,
   MovieCard,
   MovieStat,
   Review,
@@ -37,6 +38,13 @@ export async function getServerSideProps({ params }) {
 const MovieDetail = ({ movie, videos, credits, keywords }) => {
   return (
     <>
+      <MetaData
+        type="Movie"
+        title={movie.title}
+        description={movie.overview}
+        thumbnail={imageLibrary(movie.backdrop_path)}
+        link={`movie/${movie.id}`}
+      />
       <div className="mx-[5%] sm:mx-[10%]">
         <MovieCard {...movie} videos={videos} />
         <AnotherSliderActor credits={credits} />

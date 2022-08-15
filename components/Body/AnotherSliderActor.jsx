@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Slider from "react-slick";
 import { imageLibrary } from "../../request/axios";
+import { responsive } from "../../lib/responsive";
 
 const AnotherSliderActor = ({ credits }) => {
   const settings = {
@@ -12,32 +13,7 @@ const AnotherSliderActor = ({ credits }) => {
     lazyLoad: true,
     arrows: true,
     infinite: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          fade: true,
-        },
-      },
-    ],
+    responsive,
   };
   return (
     <>
